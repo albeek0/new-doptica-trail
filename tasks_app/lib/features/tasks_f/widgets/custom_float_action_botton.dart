@@ -7,10 +7,17 @@ class CustomFloatActhion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: kButtonColor,
+      ),
       height: 44,
       width: 44,
-      color: kSeconderyColor,
-      child: IconButton(onPressed: () {}, icon: const Icon(Icons.battery_0_bar)),
+
+      child: IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.add, color: Colors.white),
+      ),
     );
   }
 }

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:tasks_app/core/widgets/custom_app_bar_new.dart';
 import 'package:tasks_app/core/widgets/custome_container.dart';
@@ -12,17 +10,11 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CustomeContainer(
-        widget: Scaffold(
-      appBar: CuotomeAppBar(
-        label: "Home",
+      widget: Scaffold(
+        appBar: CuotomeAppBar(label: "Home"),
+        backgroundColor: Colors.transparent,
+        body: HomeViewBody(),
       ),
-      backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(child: HomeViewBody()),
-    ));
+    );
   }
 }
-
-
-
-
-

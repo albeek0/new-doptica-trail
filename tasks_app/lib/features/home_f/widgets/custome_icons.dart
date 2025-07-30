@@ -6,7 +6,8 @@ class CustomeIcons extends StatelessWidget {
   const CustomeIcons({
     super.key,
     required this.icons,
-    required this.text, required this.index,
+    required this.text,
+    required this.index,
   });
   final int index;
   final List<IconData> icons;
@@ -18,20 +19,18 @@ class CustomeIcons extends StatelessWidget {
       height: 150,
       width: 150,
       decoration: BoxDecoration(
-          color: kGridColor, borderRadius: BorderRadius.circular(10)),
+        color: kGridColor,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(14),
         child: Column(
           children: [
-            Icon(
-              icons[index],
-              size: 50,
-              color: kPrimaryColor,
-            ),
+            Icon(icons[index], size: 50, color: kPrimaryColor),
             Text(
               text[index],
               style: const TextStyle(fontSize: 18, color: kPrimaryColor),
-            )
+            ),
           ],
         ),
       ),

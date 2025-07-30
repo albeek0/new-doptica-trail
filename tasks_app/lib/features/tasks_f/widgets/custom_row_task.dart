@@ -9,11 +9,8 @@ class CustomRowTask extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          data,
-          style: AppStyles.styleOpenSansRegular24,
-        ),
-        const Icon(Icons.expand_more)
+        Text(data, style: AppStyles.styleOpenSansRegular24),
+        const Icon(Icons.expand_more, color: Colors.white),
       ],
     );
   }

@@ -9,20 +9,15 @@ class IconWithText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 25, top: 25),
+    return Container(
+      height: 50,
       child: Row(
         children: [
-          Icon(
-            iconData,
-            size: 30,
-          ),
+          Icon(color: Colors.white, iconData, size: 30),
           const SizedBox(
-              width: 20), // Adjust spacing between icon and text as needed
-          Text(
-            text,
-            style: AppStyles.styleOpenSansBold24,
-          ),
+            width: 10,
+          ), // Adjust spacing between icon and text as needed
+          Text(text, style: AppStyles.styleOpenSansBold24),
         ],
       ),
     );

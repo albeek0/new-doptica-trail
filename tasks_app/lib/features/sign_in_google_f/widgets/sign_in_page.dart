@@ -14,118 +14,115 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => SignInCubit(authService: GoogleAuthService()),
-      child: SafeArea(
-        child: CustomeContainer(
-          widget: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(backgroundColor: Colors.transparent),
-            body: BlocConsumer<SignInCubit, SignInState>(
-              listener: (context, state) {
-                if (state.status == SignInStatus.failure) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text('❌ ${state.error}')));
-                }
-              },
-              builder: (context, state) {
-                if (state.status == SignInStatus.loading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+      child: CustomeContainer(
+        widget: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(backgroundColor: Colors.transparent),
+          body: BlocConsumer<SignInCubit, SignInState>(
+            listener: (context, state) {
+              if (state.status == SignInStatus.failure) {
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('❌ ${state.error}')));
+              }
+            },
+            builder: (context, state) {
+              if (state.status == SignInStatus.loading) {
+                return const Center(child: CircularProgressIndicator());
+              }
 
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset("assets/images/Logo Doptica f3.png"),
-                        SizedBox(height: 10),
-                        if (state.status == SignInStatus.success) ...[
-                          Text('✅ Welcome ${state.user?['name'] ?? 'User'}'),
-                          const SizedBox(height: 16),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.60,
-                              decoration: BoxDecoration(
-                                color: Colors.amber,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Continue',
-                                  style: TextStyle(fontSize: 26),
-                                ),
-                              ),
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset("assets/images/Logo Doptica f3.png"),
+                      SizedBox(height: 10),
+                      if (state.status == SignInStatus.success) ...[
+                        Text('✅ Welcome ${state.user?['name'] ?? 'User'}'),
+                        const SizedBox(height: 16),
+                        InkWell(
+                          onTap: () {},
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.60,
+                            decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                          ),InkWell(
-                            hoverColor: Colors.white54,
-                            onTap: () {
-                              context.read<SignInCubit>().signOut();
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.60,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'SignOut',
-                                  style: AppStyles.styleOpenSansRegular24,
-                                ),
+                            child: Center(
+                              child: Text(
+                                'Continue',
+                                style: TextStyle(fontSize: 26),
                               ),
                             ),
                           ),
-                          ElevatedButton(
+                        ),
+                        InkWell(
+                          hoverColor: Colors.white54,
+                          onTap: () {
+                            context.read<SignInCubit>().signOut();
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.60,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'SignOut',
+                                style: AppStyles.styleOpenSansRegular24,
+                              ),
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed:
+                              () =>
+                                  context
+                                      .read<SignInCubit>()
+                                      .fetchUserProfile(),
+                          child: const Text('🔄 Refresh Profile'),
+                        ),
+
+                        const SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed:
+                              () => context.read<SignInCubit>().signOut(),
+                          child: const Text('🚪 Sign Out'),
+                        ),
+                      ] else ...[
+                        // const Text('🚫 Not signed in'),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.45,
+                        ),
+
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.80,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStatePropertyAll<Color>(
+                                Colors.transparent,
+                              ),
+                            ),
                             onPressed:
                                 () =>
                                     context
                                         .read<SignInCubit>()
-                                        .fetchUserProfile(),
-                            child: const Text('🔄 Refresh Profile'),
+                                        .signInWithGoogle(),
+                            child: Image.asset("assets/images/gg.png"),
                           ),
+                        ),
 
-                          const SizedBox(height: 16),
-                          ElevatedButton(
-                            onPressed:
-                                () => context.read<SignInCubit>().signOut(),
-                            child: const Text('🚪 Sign Out'),
-                          ),
-                        ] else ...[
-                          // const Text('🚫 Not signed in'),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.20,
-                          ),
-
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.80,
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: WidgetStatePropertyAll<Color>(
-                                  Colors.transparent,
-                                ),
-                              ),
-                              onPressed:
-                                  () =>
-                                      context
-                                          .read<SignInCubit>()
-                                          .signInWithGoogle(),
-                              child: Image.asset("assets/images/gg.png"),
-                            ),
-                          ),
-                          
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.30,
-                          ),
-                          TermsWidget(),
-                        ],
+                        SizedBox(height: 20),
+                        TermsWidget(),
                       ],
-                    ),
+                    ],
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),

@@ -13,43 +13,25 @@ class TasksViewBody extends StatefulWidget {
 class _TasksViewBodyState extends State<TasksViewBody> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children:const  [
-SafeArea(
+    return SafeArea(
       child: Column(
         children: [
-          // AbbarTow(),
-          SizedBox(
-            height: 50,
-          ),
+          SizedBox(height: 50),
           CustomRowFilter(),
           Padding(
-            padding: EdgeInsets.all(50),
+            padding: EdgeInsets.all(30),
             child: Column(
               children: [
-                CustomRowTask(
-                  data: "to do",
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomRowTask(
-                  data: "doing",
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomRowTask(
-                  data: "done",
-                ),
+                CustomRowTask(data: "To Do"),
+                SizedBox(height: 20),
+                CustomRowTask(data: "Doing"),
+                SizedBox(height: 20),
+                CustomRowTask(data: "Done"),
               ],
             ),
-          )
+          ),
         ],
       ),
-    )
-
-      ],
     );
   }
 }
